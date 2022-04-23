@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\ArrayShape;
+use Symfony\Config\Framework\NotifierConfig;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
@@ -91,5 +93,24 @@ class Task
         $this->description = $description;
 
         return $this;
+    }
+
+
+    #[ArrayShape([
+        'id' => "int|null",
+        'title' => "null|string",
+        'startDate' => "\DateTimeInterface|null",
+        'dueDate' => "\DateTimeInterface|null",
+        'description' => "null|string"
+    ])]
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'startDate' => $this->getStartDate(),
+            'dueDate' => $this->getDueDate(),
+            'description' => $this->getDescription(),
+        ];
     }
 }
