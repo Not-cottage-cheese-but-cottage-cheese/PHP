@@ -97,19 +97,21 @@ class Task
 
 
     #[ArrayShape([
-        'id' => "int|null",
-        'title' => "null|string",
-        'startDate' => "\DateTimeInterface|null",
-        'dueDate' => "\DateTimeInterface|null",
-        'description' => "null|string"
+        'id' => "int",
+        'title' => "string",
+        'startDate' => "\DateTimeInterface",
+        'dueDate' => "\DateTimeInterface",
+		'estimate' => "int",
+        'description' => "string"
     ])]
     public function toArray(): array
     {
         return [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
-            'startDate' => $this->getStartDate(),
-            'dueDate' => $this->getDueDate(),
+            'startDate' => $this->getStartDate()->format('Y-m-d H:i'),
+            'dueDate' => $this->getDueDate()->format('Y-m-d H:i'),
+			'estimate' => $this->getEstimate(),
             'description' => $this->getDescription(),
         ];
     }
